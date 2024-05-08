@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lexend } from "next/font/google";
 import "./globals.css";
+import { App } from "@/app/_app";
 
 const lexend = Lexend({ subsets: ["vietnamese"] });
 
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={lexend.className}>{children}</body>
+      <body className={lexend.className}>
+        <App>{children}</App>
+      </body>
     </html>
   );
 }

@@ -1,8 +1,6 @@
-const EarnedValueLayout = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+import { PropsWithChildren } from "react";
+
+const EarnedValueLayout = ({ children }: PropsWithChildren) => {
   return <>{children}</>;
 };
 

@@ -1,7 +1,6 @@
 "use client";
 
-import { memo } from "react";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { Input } from "@/components/ui/input";
 import {
@@ -122,4 +121,4 @@ const Table = ({
   );
 };
 
-export default memo(Table);
+export default Table;
