@@ -1,14 +1,26 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import planedValueSliceReducer from "@/state/cumulative/planedValueSlice";
-import earnedValueSliceReducer from "@/state/cumulative/earnedValueSlice";
-import actualCostSliceReducer from "@/state/cumulative/actualCostSlice";
+import {
+  cumulativePlanedSliceReducer,
+  cumulativeEarnedSliceReducer,
+  cumulativeActualSliceReducer,
+} from "@/state/cumulative";
+
+import {
+  dataPlanedSliceReducer,
+  dataEarnedSliceReducer,
+  dataActualSliceReducer,
+} from "@/state/data";
 
 export const store = configureStore({
   reducer: {
-    planedValue: planedValueSliceReducer,
-    earnedValue: earnedValueSliceReducer,
-    actualCost: actualCostSliceReducer,
+    cumulativePlaned: cumulativePlanedSliceReducer,
+    cumulativeEarned: cumulativeEarnedSliceReducer,
+    cumulativeActual: cumulativeActualSliceReducer,
+
+    dataPlaned: dataPlanedSliceReducer,
+    dataEarned: dataEarnedSliceReducer,
+    dataActual: dataActualSliceReducer,
   },
 });
 

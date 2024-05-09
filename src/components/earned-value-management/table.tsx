@@ -11,11 +11,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 
 type TableProps = {
   rows: number;
   columns: number;
   label: string;
+  data: number[][];
+  setData: React.Dispatch<React.SetStateAction<number[][]>>;
   cumulative: number[];
   setCumulative: React.Dispatch<React.SetStateAction<number[]>>;
 };
@@ -24,34 +27,36 @@ const Table = ({
   rows,
   columns,
   label,
+  data,
+  setData,
   cumulative,
   setCumulative,
 }: TableProps) => {
-  const [data, setData] = useState(
-    Array(rows)
-      .fill(0)
-      .map(() => Array(columns).fill(0)),
-  );
   const [totals, setTotals] = useState<number[]>([]);
 
   useEffect(() => {
+    if (data.length === 0) {
+      setData(Array(rows).fill(Array(columns).fill(0)));
+    }
+
     const newTotals = Array.from({ length: columns }).map(
       (_, i) =>
         Array.from({ length: rows }).reduce(
-          (acc, _, j) => acc + data[j][i],
+          (acc: number, _, j) => acc + (data[j] && data[j][i] ? data[j][i] : 0),
           0,
         ) as number,
     );
     setTotals(newTotals);
 
-    const newCumulativeActualCosts = Array.from({ length: columns }).map(
-      (_, i) => newTotals.slice(0, i + 1).reduce((acc, cost) => acc + cost, 0),
+    const newCumulative = Array.from({ length: columns }).map((_, i) =>
+      newTotals.slice(0, i + 1).reduce((acc, cost) => acc + cost, 0),
     );
-    setCumulative(newCumulativeActualCosts);
+    setCumulative(newCumulative);
   }, [data, rows, columns]);
 
   const handleChange = (row: number, col: number, value: number) => {
     const newData = [...data];
+    newData[row] = [...newData[row]];
     newData[row][col] = value;
     setData(newData);
   };
@@ -64,6 +69,7 @@ const Table = ({
           Enter the budgeted cost for each activity per week.
         </CardDescription>
       </CardHeader>
+      <Separator className="mb-2" />
       <CardContent>
         <ScrollArea className="h-min w-full pb-2">
           <table>
@@ -84,7 +90,7 @@ const Table = ({
                   {Array.from({ length: columns }).map((_, j) => (
                     <td key={j} className="p-2">
                       <Input
-                        value={data[i][j]}
+                        value={data[i] && data[i][j] ? data[i][j] : 0}
                         className="text-center"
                         onChange={(e) => handleChange(i, j, +e.target.value)}
                       />
