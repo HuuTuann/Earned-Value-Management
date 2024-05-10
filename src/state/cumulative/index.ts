@@ -5,7 +5,7 @@ interface CumulativeState {
 }
 
 const initialState: CumulativeState = {
-  data: new Array(1).fill(0),
+  data: new Array(0),
 };
 
 const cumulativePlanedSlice = createSlice({

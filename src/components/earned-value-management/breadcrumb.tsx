@@ -17,15 +17,15 @@ import Link from "next/link";
 const BreadcrumbNavigation = () => {
   const pathname = usePathname();
   const currentPage = pathname.split("/").pop() as
-    | "activity-and-week-input"
+    | ""
     | "value-input"
     | "result";
 
   const breadcrumbMap = [
     {
-      name: "activity-and-week-input",
-      label: "Activity and Week Input",
-      href: "/earned-value-management/activity-and-week-input",
+      name: "",
+      label: "Home",
+      href: "/",
     },
     {
       name: "value-input",

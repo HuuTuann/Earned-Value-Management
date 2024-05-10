@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { SlidersVertical } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { SlidersVertical, Dices } from "lucide-react";
 
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
+  CardFooter,
   CardTitle,
 } from "@/components/ui/card";
 import {
@@ -20,6 +21,7 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import ActivityAndWeekInput from "@/components/earned-value-management/activity-and-week-input";
+import Link from "next/link";
 
 type TableProps = {
   rows: number;
@@ -47,8 +49,13 @@ const Table = ({
   const [totals, setTotals] = useState<number[]>([]);
 
   useEffect(() => {
-    if (data.length === 0) {
-      setData(Array(rows).fill(Array(columns).fill(0)));
+    if (data.length !== rows || data[0]?.length !== columns) {
+      const newData = Array.from({ length: rows }).map((_, i) => {
+        return Array.from({ length: columns }).map((_, j) => {
+          return data[i] && data[i][j] ? data[i][j] : 0;
+        });
+      });
+      setData(newData);
     }
 
     const newTotals = Array.from({ length: columns }).map(
@@ -73,6 +80,20 @@ const Table = ({
     setData(newData);
   };
 
+  const handleData = useCallback(
+    (type: "random" | "reset") => {
+      const newData = Array.from({ length: rows }).map(() => {
+        const current = Math.floor(Math.random() * 10000);
+
+        return Array.from({ length: columns }).map(() =>
+          type === "random" ? Math.floor(Math.random() * current) : 0,
+        );
+      });
+      setData(newData);
+    },
+    [rows, columns],
+  );
+
   return (
     <Card className="mt-2 overflow-hidden">
       <CardHeader>
@@ -83,21 +104,30 @@ const Table = ({
               Enter the budgeted cost for each activity per week.
             </CardDescription>
           </div>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant={"outline"} size={"icon"}>
-                <SlidersVertical size={24} />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent align="end">
-              <ActivityAndWeekInput
-                rows={rows}
-                setRows={setRows}
-                columns={columns}
-                setColumns={setColumns}
-              />
-            </PopoverContent>
-          </Popover>
+          <div className="space-x-2">
+            <Button
+              variant={"outline"}
+              size={"icon"}
+              onClick={() => handleData("random")}
+            >
+              <Dices size={24} />
+            </Button>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant={"outline"} size={"icon"}>
+                  <SlidersVertical size={24} />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align="end">
+                <ActivityAndWeekInput
+                  rows={rows}
+                  setRows={setRows}
+                  columns={columns}
+                  setColumns={setColumns}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
         </div>
       </CardHeader>
       <Separator className="mb-2" />
@@ -155,6 +185,16 @@ const Table = ({
           <ScrollBar orientation="horizontal" className="cursor-pointer" />
         </ScrollArea>
       </CardContent>
+      <CardFooter>
+        <div className="flex w-full justify-end gap-4">
+          <Button variant="ghost" onClick={() => handleData("reset")}>
+            Reset
+          </Button>
+          <Button variant="default" asChild>
+            <Link href="/earned-value-management/result">Calculate</Link>
+          </Button>
+        </div>
+      </CardFooter>
     </Card>
   );
 };

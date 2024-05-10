@@ -19,9 +19,6 @@ import {
 import { createSelector } from "@reduxjs/toolkit";
 
 const ValueInput = () => {
-  const [rows, setRows] = useState(6);
-  const [columns, setColumns] = useState(6);
-
   const dispatch = useDispatch<AppDispatch>();
 
   const selectDataPlaned = (state: RootState) => state.dataPlaned.data;
@@ -99,6 +96,9 @@ const ValueInput = () => {
     },
     [dispatch],
   );
+
+  const [rows, setRows] = useState(dataPlaned.length);
+  const [columns, setColumns] = useState(dataPlaned[0].length);
 
   return (
     <Tabs defaultValue="planned-value" className="overflow-hidden">

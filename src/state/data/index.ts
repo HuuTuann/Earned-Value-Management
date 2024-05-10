@@ -5,7 +5,7 @@ interface DataState {
 }
 
 const initialState: DataState = {
-  data: new Array(0).fill(new Array(0).fill(0)),
+  data: new Array(6).fill(new Array(6).fill(0)),
 };
 
 const dataPlanedSlice = createSlice({
