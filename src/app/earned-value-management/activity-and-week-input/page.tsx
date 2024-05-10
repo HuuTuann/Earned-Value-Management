@@ -1,10 +1,14 @@
-import BreadcrumbNavigation from "@/components/earned-value-management/breadcrumb";
+import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import ActivityAndWeekInput from "@/components/earned-value-management/activity-and-week-input";
 
 export default function ActivityAndWeekInputPage() {
-  return (
-    <>
-      <BreadcrumbNavigation currentPage="activity-and-week-input" />
-      <h1>Activity and Week Input Page</h1>
-    </>
-  );
+  return <h1>Hello</h1>;
 }

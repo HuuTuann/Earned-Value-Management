@@ -1,3 +1,4 @@
+import BreadcrumbNavigation from "@/components/earned-value-management/breadcrumb";
 import { PropsWithChildren } from "react";
 
 const EarnedValueLayout = ({ children }: PropsWithChildren) => {
@@ -6,7 +7,10 @@ const EarnedValueLayout = ({ children }: PropsWithChildren) => {
       <h1 className="text-center text-5xl font-bold">
         Earned Value Management
       </h1>
-      <div className="space-y-5">{children}</div>
+      <div>
+        <BreadcrumbNavigation />
+        {children}
+      </div>
     </div>
   );
 };

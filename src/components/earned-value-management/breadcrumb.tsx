@@ -1,5 +1,8 @@
-import { ChevronRight } from "lucide-react";
+"use client";
+
 import React from "react";
+import { ChevronRight } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import {
   Breadcrumb,
@@ -11,11 +14,13 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 
-type BreadcrumbNavigationProps = {
-  currentPage: "activity-and-week-input" | "value-input" | "result";
-};
+const BreadcrumbNavigation = () => {
+  const pathname = usePathname();
+  const currentPage = pathname.split("/").pop() as
+    | "activity-and-week-input"
+    | "value-input"
+    | "result";
 
-const BreadcrumbNavigation = ({ currentPage }: BreadcrumbNavigationProps) => {
   const breadcrumbMap = [
     {
       name: "activity-and-week-input",
@@ -35,7 +40,7 @@ const BreadcrumbNavigation = ({ currentPage }: BreadcrumbNavigationProps) => {
   ];
 
   return (
-    <Breadcrumb>
+    <Breadcrumb className="w-full">
       <BreadcrumbList>
         {breadcrumbMap.map((breadcrumb, index) => {
           const isLast = index === breadcrumbMap.length - 1;
@@ -62,29 +67,6 @@ const BreadcrumbNavigation = ({ currentPage }: BreadcrumbNavigationProps) => {
             </React.Fragment>
           );
         })}
-        {/* <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href={"/earned-value-management/activity-and-week-input"}>
-              Activity and Week Input
-            </Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator>
-          <ChevronRight />
-        </BreadcrumbSeparator>
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href={"/earned-value-management/value-input"}>
-              Value Input
-            </Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator>
-          <ChevronRight />
-        </BreadcrumbSeparator>
-        <BreadcrumbItem>
-          <BreadcrumbPage>Result</BreadcrumbPage>
-        </BreadcrumbItem> */}
       </BreadcrumbList>
     </Breadcrumb>
   );

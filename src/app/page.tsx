@@ -92,7 +92,7 @@ export default function Home() {
         </a>
 
         <a
-          href="http://localhost:3000/earned-value-management"
+          href="http://localhost:3000/earned-value-management/value-input"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
           target="_blank"
           rel="noopener noreferrer"

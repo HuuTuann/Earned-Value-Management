@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { SlidersVertical } from "lucide-react";
 
-import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -10,12 +10,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import ActivityAndWeekInput from "@/components/earned-value-management/activity-and-week-input";
 
 type TableProps = {
   rows: number;
+  setRows: (value: number) => void;
   columns: number;
+  setColumns: (value: number) => void;
   label: string;
   data: number[][];
   setData: React.Dispatch<React.SetStateAction<number[][]>>;
@@ -25,7 +35,9 @@ type TableProps = {
 
 const Table = ({
   rows,
+  setRows,
   columns,
+  setColumns,
   label,
   data,
   setData,
@@ -64,10 +76,29 @@ const Table = ({
   return (
     <Card className="mt-2 overflow-hidden">
       <CardHeader>
-        <CardTitle>{label}</CardTitle>
-        <CardDescription>
-          Enter the budgeted cost for each activity per week.
-        </CardDescription>
+        <div className="flex items-center justify-between">
+          <div className="space-y-1.5">
+            <CardTitle>{label}</CardTitle>
+            <CardDescription>
+              Enter the budgeted cost for each activity per week.
+            </CardDescription>
+          </div>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant={"outline"} size={"icon"}>
+                <SlidersVertical size={24} />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent align="end">
+              <ActivityAndWeekInput
+                rows={rows}
+                setRows={setRows}
+                columns={columns}
+                setColumns={setColumns}
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
       </CardHeader>
       <Separator className="mb-2" />
       <CardContent>
@@ -77,7 +108,7 @@ const Table = ({
               <tr>
                 <th className="min-w-[232px]"></th>
                 {Array.from({ length: columns }).map((_, i) => (
-                  <th key={i} className="min-w-24 p-2">
+                  <th key={i} className="min-w-24 flex-grow p-2">
                     Week {i + 1}
                   </th>
                 ))}
@@ -93,6 +124,7 @@ const Table = ({
                         value={data[i] && data[i][j] ? data[i][j] : 0}
                         className="text-center"
                         onChange={(e) => handleChange(i, j, +e.target.value)}
+                        onClick={(e) => (e.target as HTMLInputElement).select()}
                       />
                     </td>
                   ))}

@@ -20,7 +20,7 @@ import { createSelector } from "@reduxjs/toolkit";
 
 const ValueInput = () => {
   const [rows, setRows] = useState(6);
-  const [columns, setColumns] = useState(30);
+  const [columns, setColumns] = useState(6);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -102,15 +102,19 @@ const ValueInput = () => {
 
   return (
     <Tabs defaultValue="planned-value" className="overflow-hidden">
-      <TabsList>
-        <TabsTrigger value="planned-value">Planned Value</TabsTrigger>
-        <TabsTrigger value="earned-value">Earned Value</TabsTrigger>
-        <TabsTrigger value="actual-costs">Actual Costs</TabsTrigger>
-      </TabsList>
+      <div className="flex w-full justify-end">
+        <TabsList>
+          <TabsTrigger value="planned-value">Planned Value</TabsTrigger>
+          <TabsTrigger value="earned-value">Earned Value</TabsTrigger>
+          <TabsTrigger value="actual-costs">Actual Costs</TabsTrigger>
+        </TabsList>
+      </div>
       <TabsContent value="planned-value">
         <Table
           rows={rows}
+          setRows={setRows}
           columns={columns}
+          setColumns={setColumns}
           label="Planned Value"
           data={dataPlaned}
           setData={setDataPlaned}
@@ -121,7 +125,9 @@ const ValueInput = () => {
       <TabsContent value="earned-value">
         <Table
           rows={rows}
+          setRows={setRows}
           columns={columns}
+          setColumns={setColumns}
           label="Earned Value"
           data={dataEarned}
           setData={setDataEarned}
@@ -132,7 +138,9 @@ const ValueInput = () => {
       <TabsContent value="actual-costs">
         <Table
           rows={rows}
+          setRows={setRows}
           columns={columns}
+          setColumns={setColumns}
           label="Actual Costs"
           data={dataActual}
           setData={setDataActual}
