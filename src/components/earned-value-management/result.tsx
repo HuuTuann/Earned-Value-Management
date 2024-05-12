@@ -2,7 +2,7 @@
 
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/state/store";
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 import MyLineChart from "@/components/earned-value-management/line-chart";
@@ -27,6 +27,14 @@ const Result = () => {
   const { cumulativePlaned, cumulativeEarned, cumulativeActual } =
     useSelector(selectCumulative);
 
+  const maxWeek = Math.max(
+    cumulativePlaned.length,
+    cumulativeEarned.length,
+    cumulativeActual.length,
+  );
+
+  const [week, setWeek] = useState<number>(maxWeek);
+
   const [data, setData] = useState<
     Array<{
       name: number;
@@ -35,9 +43,10 @@ const Result = () => {
       Actual: number;
     }>
   >(
-    cumulativePlaned.map((value, index) => ({
+    Array.from({ length: maxWeek }, (_, index) => ({
       name: index + 1,
-      Planed: value === undefined ? 0 : value,
+      Planed:
+        cumulativePlaned[index] === undefined ? 0 : cumulativePlaned[index],
       Earned:
         cumulativeEarned[index] === undefined ? 0 : cumulativeEarned[index],
       Actual:
@@ -45,9 +54,28 @@ const Result = () => {
     })),
   );
 
+  useMemo(() => {
+    setData(
+      Array.from({ length: week }, (_, index) => ({
+        name: index + 1,
+        Planed:
+          cumulativePlaned[index] === undefined ? 0 : cumulativePlaned[index],
+        Earned:
+          cumulativeEarned[index] === undefined ? 0 : cumulativeEarned[index],
+        Actual:
+          cumulativeActual[index] === undefined ? 0 : cumulativeActual[index],
+      })),
+    );
+  }, [week]);
+
   return (
     <div className="mt-4">
-      <MyLineChart data={data} />
+      <MyLineChart
+        data={data}
+        maxWeek={maxWeek}
+        week={week}
+        setWeek={setWeek}
+      />
     </div>
   );
 };

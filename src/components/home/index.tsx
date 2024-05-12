@@ -23,10 +23,10 @@ import { Label } from "@/components/ui/label";
 
 const MyHome = () => {
   const router = useRouter();
-  const [link, setLink] = useState("");
+  const [link, setLink] = useState("/earned-value-management");
 
   const handleChange = (
-    value: "/earned-value-management/value-input" | "/use-case-point",
+    value: "/earned-value-management" | "/use-case-point",
   ) => {
     setLink(value);
   };
@@ -50,16 +50,15 @@ const MyHome = () => {
             <Label htmlFor="framework">Framework</Label>
             <Select
               onValueChange={(
-                value:
-                  | "/earned-value-management/value-input"
-                  | "/use-case-point",
+                value: "/earned-value-management" | "/use-case-point",
               ) => handleChange(value)}
+              defaultValue="/earned-value-management"
             >
               <SelectTrigger id="framework">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent position="popper">
-                <SelectItem value="/earned-value-management/value-input">
+                <SelectItem value="/earned-value-management">
                   Earned Value Management
                 </SelectItem>
                 <SelectItem value="/use-case-point">Use Case Point</SelectItem>
@@ -68,11 +67,7 @@ const MyHome = () => {
           </div>
         </CardContent>
         <CardFooter>
-          <Button
-            disabled={link === ""}
-            className="w-full"
-            onClick={handleContinue}
-          >
+          <Button className="w-full" onClick={handleContinue}>
             Continue
           </Button>
         </CardFooter>

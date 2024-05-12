@@ -14,8 +14,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import SelectWeek from "@/components/earned-value-management/select";
 
 type LineChartProps = {
+  week: number;
+  maxWeek: number;
+  setWeek: (value: number) => void;
   data: Array<{
     name: number;
     Planed: number;
@@ -24,17 +28,18 @@ type LineChartProps = {
   }>;
 };
 
-const MyLineChart = ({ data }: LineChartProps) => {
+const MyLineChart = ({ data, week, maxWeek, setWeek }: LineChartProps) => {
   return (
     <Card>
       <CardHeader>
-        <div className="flex w-full justify-between">
+        <div className="flex w-full items-center justify-between">
           <div className="space-y-2">
             <CardTitle>Earned Value Line Chart</CardTitle>
             <CardDescription>
               This chart shows the cumulative planed, earned, and actual values.
             </CardDescription>
           </div>
+          <SelectWeek week={week} maxWeek={maxWeek} setWeek={setWeek} />
         </div>
       </CardHeader>
       <CardContent className="flex justify-center">
