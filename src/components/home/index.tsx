@@ -47,14 +47,14 @@ const MyHome = () => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col space-y-2">
-            <Label htmlFor="framework">Framework</Label>
+            <Label htmlFor="tool">Tool</Label>
             <Select
               onValueChange={(
                 value: "/earned-value-management" | "/use-case-point",
               ) => handleChange(value)}
               defaultValue="/earned-value-management"
             >
-              <SelectTrigger id="framework">
+              <SelectTrigger id="tool">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent position="popper">
