@@ -18,7 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={lexend.className}>
-        <App>{children}</App>
+        <App>
+          <div className="container flex min-h-screen flex-col justify-center gap-10">
+            {children}
+          </div>
+        </App>
       </body>
     </html>
   );
