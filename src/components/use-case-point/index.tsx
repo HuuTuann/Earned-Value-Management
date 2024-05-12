@@ -101,7 +101,7 @@ const UseCasePoint = () => {
       </CardContent>
       <CardFooter>
         <div className="flex w-full justify-between">
-          <Button variant={"outline"}>
+          <Button variant={"outline"} asChild>
             <Link href="/">Back Home</Link>
           </Button>
           <div className="flex gap-4">
