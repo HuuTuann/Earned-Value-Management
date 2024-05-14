@@ -23,7 +23,7 @@ export default function RootLayout({
       </head>
       <body className={lexend.className}>
         <App>
-          <div className="flex min-h-screen items-center justify-center gap-10">
+          <div className="flex min-h-screen items-center justify-center gap-10 py-10">
             {children}
           </div>
         </App>

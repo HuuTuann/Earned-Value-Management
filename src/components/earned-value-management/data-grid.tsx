@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback, useMemo, useEffect } from "react";
-import { SlidersVertical, Dices } from "lucide-react";
+import { useState, useCallback, useEffect } from "react";
+import { Dices } from "lucide-react";
 
 import {
   Card,
@@ -11,11 +11,7 @@ import {
   CardFooter,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -23,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import ActivityAndWeekInput from "@/components/earned-value-management/activity-and-week-input";
 import Link from "next/link";
 
-type TableProps = {
+type DataGridProps = {
   rows: number;
   setRows: (value: number) => void;
   columns: number;
@@ -35,7 +31,7 @@ type TableProps = {
   setCumulative: React.Dispatch<React.SetStateAction<number[]>>;
 };
 
-const Table = ({
+const DataGrid = ({
   rows,
   setRows,
   columns,
@@ -45,7 +41,7 @@ const Table = ({
   setData,
   cumulative,
   setCumulative,
-}: TableProps) => {
+}: DataGridProps) => {
   const [totals, setTotals] = useState<number[]>([]);
 
   useEffect(() => {
@@ -112,21 +108,12 @@ const Table = ({
             >
               <Dices size={24} />
             </Button>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant={"outline"} size={"icon"}>
-                  <SlidersVertical size={24} />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent align="end">
-                <ActivityAndWeekInput
-                  rows={rows}
-                  setRows={setRows}
-                  columns={columns}
-                  setColumns={setColumns}
-                />
-              </PopoverContent>
-            </Popover>
+            <ActivityAndWeekInput
+              rows={rows}
+              setRows={setRows}
+              columns={columns}
+              setColumns={setColumns}
+            />
           </div>
         </div>
       </CardHeader>
@@ -199,4 +186,4 @@ const Table = ({
   );
 };
 
-export default Table;
+export default DataGrid;

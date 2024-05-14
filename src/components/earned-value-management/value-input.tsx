@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Table from "@/components/earned-value-management/table";
+import DataGrid from "@/components/earned-value-management/data-grid";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AppDispatch, RootState } from "@/state/store";
 import {
@@ -110,7 +110,7 @@ const ValueInput = () => {
         </TabsList>
       </div>
       <TabsContent value="planned-value">
-        <Table
+        <DataGrid
           rows={rows}
           setRows={setRows}
           columns={columns}
@@ -123,7 +123,7 @@ const ValueInput = () => {
         />
       </TabsContent>
       <TabsContent value="earned-value">
-        <Table
+        <DataGrid
           rows={rows}
           setRows={setRows}
           columns={columns}
@@ -136,7 +136,7 @@ const ValueInput = () => {
         />
       </TabsContent>
       <TabsContent value="actual-costs">
-        <Table
+        <DataGrid
           rows={rows}
           setRows={setRows}
           columns={columns}

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/card";
 
 import WeeklyPerformanceChart from "@/components/earned-value-management/result/weekly-performance-chart";
-import SelectWeek from "@/components/earned-value-management/select";
+import SelectWeek from "@/components/earned-value-management/select-week";
 import PerformanceMetricsTable from "@/components/earned-value-management/result/performance-metrics-table";
 
 const Result = () => {

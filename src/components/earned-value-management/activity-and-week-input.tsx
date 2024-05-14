@@ -3,8 +3,13 @@ import { useCallback, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { SlidersVertical } from "lucide-react";
 
 type ActivityAndWeekInputProps = {
   rows: number;
@@ -40,33 +45,39 @@ const ActivityAndWeekInput = ({
   };
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-center text-xl font-bold">Setting</h3>
-      <Separator />
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="activity">Activity:</Label>
-          <Input
-            id="activity"
-            value={activity}
-            onChange={(e) => handleChange("activity", Number(e.target.value))}
-            onClick={(e) => (e.target as HTMLInputElement).select()}
-          />
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant={"outline"} size={"icon"}>
+          <SlidersVertical size={24} />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align="end" className="space-y-4">
+        <h3 className="text-center text-xl font-bold">Setting</h3>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="activity">Activity:</Label>
+            <Input
+              id="activity"
+              value={activity}
+              onChange={(e) => handleChange("activity", Number(e.target.value))}
+              onClick={(e) => (e.target as HTMLInputElement).select()}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="week">Week:</Label>
+            <Input
+              id="week"
+              value={week}
+              onChange={(e) => handleChange("week", Number(e.target.value))}
+              onClick={(e) => (e.target as HTMLInputElement).select()}
+            />
+          </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="week">Week:</Label>
-          <Input
-            id="week"
-            value={week}
-            onChange={(e) => handleChange("week", Number(e.target.value))}
-            onClick={(e) => (e.target as HTMLInputElement).select()}
-          />
-        </div>
-      </div>
-      <Button className="w-full" onClick={handleSave}>
-        Save
-      </Button>
-    </div>
+        <Button className="w-full" onClick={handleSave}>
+          Save
+        </Button>
+      </PopoverContent>
+    </Popover>
   );
 };
 

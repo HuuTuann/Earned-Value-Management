@@ -78,31 +78,6 @@ const BreadcrumbNavigation = () => {
             </React.Fragment>
           );
         })}
-        {/* {breadcrumbMap.map((breadcrumb, index) => {
-          const isLast = index === breadcrumbMap.length - 1;
-          const isActive = breadcrumb.name === currentPage;
-
-          return (
-            <React.Fragment key={breadcrumb.name}>
-              <BreadcrumbItem>
-                {isActive ? (
-                  <BreadcrumbPage>{breadcrumb.label}</BreadcrumbPage>
-                ) : (
-                  <BreadcrumbLink asChild>
-                    <Link href={breadcrumb.href}>{breadcrumb.label}</Link>
-                  </BreadcrumbLink>
-                )}
-              </BreadcrumbItem>
-              {!isLast && (
-                <>
-                  <BreadcrumbSeparator>
-                    <ChevronRight />
-                  </BreadcrumbSeparator>
-                </>
-              )}
-            </React.Fragment>
-          );
-        })} */}
       </BreadcrumbList>
     </Breadcrumb>
   );
