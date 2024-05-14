@@ -1,3 +1,4 @@
+import { CardContent } from "@/components/ui/card";
 import {
   LineChart,
   Line,
@@ -31,16 +32,18 @@ const WeeklyPerformanceChart = ({
   }));
 
   return (
-    <LineChart width={800} height={400} data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="Planed" stroke="#8884d8" />
-      <Line type="monotone" dataKey="Earned" stroke="#82ca9d" />
-      <Line type="monotone" dataKey="Actual" stroke="#FF0000" />
-    </LineChart>
+    <CardContent>
+      <LineChart width={800} height={400} data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="Planed" stroke="#8884d8" />
+        <Line type="monotone" dataKey="Earned" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="Actual" stroke="#FF0000" />
+      </LineChart>
+    </CardContent>
   );
 };
 

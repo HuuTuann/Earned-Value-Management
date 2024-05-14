@@ -55,6 +55,13 @@ const DataGrid = ({
   }, [data, cumulative]);
 
   useEffect(() => {
+    return () => {
+      setInitialData(dataRef.current);
+      setInitialCumulative(cumulativeRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
     if (data.length !== rows || data[0]?.length !== columns) {
       const newData = Array.from({ length: rows }).map((_, i) => {
         return Array.from({ length: columns }).map((_, j) => {
@@ -64,13 +71,6 @@ const DataGrid = ({
       setData(newData);
     }
 
-    return () => {
-      setInitialData(dataRef.current);
-      setInitialCumulative(cumulativeRef.current);
-    };
-  }, []);
-
-  useMemo(() => {
     const newTotals = Array.from({ length: columns }).map(
       (_, i) =>
         Array.from({ length: rows }).reduce(

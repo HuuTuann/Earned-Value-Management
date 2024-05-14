@@ -58,7 +58,7 @@ const Result = () => {
           <SelectWeek week={week} maxWeek={maxWeek} setWeek={setWeek} />
         </div>
       </CardHeader>
-      <CardContent className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-4">
         <WeeklyPerformanceChart
           week={week}
           initialData={{
@@ -75,7 +75,7 @@ const Result = () => {
             Actual: cumulativeActual,
           }}
         />
-      </CardContent>
+      </div>
     </Card>
   );
 };
