@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { Dices } from "lucide-react";
 
 import {
@@ -25,10 +25,10 @@ type DataGridProps = {
   columns: number;
   setColumns: (value: number) => void;
   label: string;
-  data: number[][];
-  setData: React.Dispatch<React.SetStateAction<number[][]>>;
-  cumulative: number[];
-  setCumulative: React.Dispatch<React.SetStateAction<number[]>>;
+  initialData: number[][];
+  setInitialData: React.Dispatch<React.SetStateAction<number[][]>>;
+  initialCumulative: number[];
+  setInitialCumulative: React.Dispatch<React.SetStateAction<number[]>>;
 };
 
 const DataGrid = ({
@@ -37,12 +37,22 @@ const DataGrid = ({
   columns,
   setColumns,
   label,
-  data,
-  setData,
-  cumulative,
-  setCumulative,
+  initialData,
+  setInitialData,
+  initialCumulative,
+  setInitialCumulative,
 }: DataGridProps) => {
+  const [data, setData] = useState<number[][]>(initialData);
   const [totals, setTotals] = useState<number[]>([]);
+  const [cumulative, setCumulative] = useState<number[]>(initialCumulative);
+
+  const dataRef = useRef(data);
+  const cumulativeRef = useRef(cumulative);
+
+  useEffect(() => {
+    dataRef.current = data;
+    cumulativeRef.current = cumulative;
+  }, [data, cumulative]);
 
   useEffect(() => {
     if (data.length !== rows || data[0]?.length !== columns) {
@@ -54,6 +64,13 @@ const DataGrid = ({
       setData(newData);
     }
 
+    return () => {
+      setInitialData(dataRef.current);
+      setInitialCumulative(cumulativeRef.current);
+    };
+  }, []);
+
+  useMemo(() => {
     const newTotals = Array.from({ length: columns }).map(
       (_, i) =>
         Array.from({ length: rows }).reduce(

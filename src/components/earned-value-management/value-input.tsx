@@ -116,10 +116,10 @@ const ValueInput = () => {
           columns={columns}
           setColumns={setColumns}
           label="Planned Value"
-          data={dataPlaned}
-          setData={setDataPlaned}
-          cumulative={cumulativePlaned}
-          setCumulative={setCumulativePlaned}
+          initialData={dataPlaned}
+          setInitialData={setDataPlaned}
+          initialCumulative={cumulativePlaned}
+          setInitialCumulative={setCumulativePlaned}
         />
       </TabsContent>
       <TabsContent value="earned-value">
@@ -129,10 +129,10 @@ const ValueInput = () => {
           columns={columns}
           setColumns={setColumns}
           label="Earned Value"
-          data={dataEarned}
-          setData={setDataEarned}
-          cumulative={cumulativeEarned}
-          setCumulative={setCumulativeEarned}
+          initialData={dataEarned}
+          setInitialData={setDataEarned}
+          initialCumulative={cumulativeEarned}
+          setInitialCumulative={setCumulativeEarned}
         />
       </TabsContent>
       <TabsContent value="actual-costs">
@@ -142,10 +142,10 @@ const ValueInput = () => {
           columns={columns}
           setColumns={setColumns}
           label="Actual Costs"
-          data={dataActual}
-          setData={setDataActual}
-          cumulative={cumulativeActual}
-          setCumulative={setCumulativeActual}
+          initialData={dataActual}
+          setInitialData={setDataActual}
+          initialCumulative={cumulativeActual}
+          setInitialCumulative={setCumulativeActual}
         />
       </TabsContent>
     </Tabs>
